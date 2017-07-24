@@ -8,6 +8,7 @@ namespace NFine.API.Controllers
 {
     public class HomeController : Controller
     {
+        //系统入口
         public ActionResult Index()
         {
             return Redirect("swagger");

@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        $("#F_Area").bindSelect({
+            url: "/SystemManage/Area/GetTreeSelectJson",
+        });
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/CustomerManage/Customer/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                //{ label: '所属银行', name: 'F_Bank', width: 80, align: 'left' },
+                           {
+                               label: '所属银行', name: 'F_Bank', width: 80, align: 'left',
+                               formatter: function (cellvalue, options, rowObject) {
+                                   return top.clients.dataItems["Bank"][cellvalue] == null ? "" : top.clients.dataItems["Bank"][cellvalue];
+                               }
+                           },
+                             {
+                                 label: '所属区域', name: 'F_Area', width: 80, align: 'left',
+                                 formatter: function (cellvalue, options, rowObject) {
+                                     return top.clients.area[cellvalue] == null ? "" : top.clients.area[cellvalue];
+                                 }
+                             },
+              //  { label: '所属区域', name: 'F_Area', width: 80, align: 'left' },
+                { label: '客户姓名', name: 'F_Name', width: 80, align: 'left' },
+                { label: '联系电话', name: 'F_Tel', width: 80, align: 'left' },
+                { label: '客户编号', name: 'F_Number', width: 80, align: 'left' },
+                { label: '店铺名称', name: 'F_Shop_Name', width: 80, align: 'left' },
+                //{ label: '店铺地址', name: 'F_Shop_Address', width: 80, align: 'left' },
+                { label: '经营范围', name: 'F_Range', width: 80, align: 'left' },
+                // { label: '投放机具类型', name: 'F_Machines', width: 80, align: 'left' },
+                  {
+                      label: '投放机具类型', name: 'F_Machines', width: 80, align: 'left',
+                      formatter: function (cellvalue, options, rowObject) {
+                          return top.clients.dataItems["Machine"][cellvalue] == null ? "" : top.clients.dataItems["Machine"][cellvalue];
+                      }
+                  },
+                  { label: '机具编号', name: 'F_Machines_Number', width: 80, align: 'left' },
+                   { label: '收银员名称', name: 'F_Cashier_Name', width: 80, align: 'left' },
+                   { label: '收银员编号', name: 'F_Cashier_Number', width: 80, align: 'left' },
+                    { label: 'PSAM卡编号', name: 'F_PSAM_Number', width: 80, align: 'left' },
+                     { label: '客户经理名称', name: 'F_Manage_Name', width: 80, align: 'left' },
+                      { label: '客户经理电话', name: 'F_Manage_Tel', width: 80, align: 'left' },
+                //{
+                //    label: '性别', name: 'F_Gender', width: 60, align: 'center',
+                //    formatter: function (cellvalue, options, rowObject) {
+                //        if (cellvalue == true) {
+                //            return '男';
+                //        } else {
+                //            return '女';
+                //        }
+                //    }
+                //},
+                //{ label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
+                //{
+                //    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
+                //    formatter: function (cellvalue, options, rowObject) {
+                //        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                //    }
+                //},
+                //{
+                //    label: '部门', name: 'F_DepartmentId', width: 80, align: 'left',
+                //    formatter: function (cellvalue, options, rowObject) {
+                //        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                //    }
+                //},
+                //{
+                //    label: '岗位', name: 'F_DutyId', width: 80, align: 'left',
+                //    formatter: function (cellvalue, options, rowObject) {
+                //        return top.clients.duty[cellvalue] == null ? "" : top.clients.duty[cellvalue].fullname;
+                //    }
+                //},
+                //{
+                //    label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
+                //    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                //},
+                //{
+                //    label: "允许登录", name: "F_EnabledMark", width: 60, align: "center",
+                //    formatter: function (cellvalue, options, rowObject) {
+                //        if (cellvalue == 1) {
+                //            return '<span class=\"label label-success\">正常</span>';
+                //        } else if (cellvalue == 0) {
+                //            return '<span class=\"label label-default\">禁用</span>';
+                //        }
+                //    }
+                //},
+                //{ label: '备注', name: 'F_Description', width: 200, align: 'left' }
+            ],
+            pager: "#gridPager",
+            sortname: 'F_Id asc,F_Bank desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val(),area:$('#F_Area').val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增客户",
+            url: "/CustomerManage/Customer/Form",
+            width: "700px",
+            height: "510px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalOpen({
+            id: "Form",
+            title: "修改客户",
+            url: "/CustomerManage/Customer/Form?keyValue=" + keyValue,
+            width: "700px",
+            height: "510px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/CustomerManage/Customer/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalOpen({
+            id: "Details",
+            title: "查看客户",
+            url: "/CustomerManage/Customer/Details?keyValue=" + keyValue,
+            width: "700px",
+            height: "550px",
+            btn: null,
+        });
+    }
+    function btn_task() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalOpen({
+            id: "Details",
+            title: "任务分配",
+            url: "/CustomerManage/Customer/Task?keyValue=" + keyValue,
+            width: "700px",
+            height: "550px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_revisepassword() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var Account = $("#gridList").jqGridRowValue().F_Account;
+        var RealName = $("#gridList").jqGridRowValue().F_RealName;
+        $.modalOpen({
+            id: "RevisePassword",
+            title: '重置密码',
+            url: '/SystemManage/User/RevisePassword?keyValue=' + keyValue + "&account=" + escape(Account) + '&realName=' + escape(RealName),
+            width: "450px",
+            height: "260px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_disabled() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/SystemManage/User/DisabledAccount",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+    function btn_enabled() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/SystemManage/User/EnabledAccount",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新增客户</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已选中<span>1</span>项</li>
+                <li><a id="NF-edit" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改客户</a></li>
+                <li><a id="NF-delete" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除客户</a></li>
+                <li><a id="NF-Details" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看客户</a></li>
+                <li><a id="NF-task" onclick="btn_task()"><i class="fa fa-key"></i>任务分配</a></li>
+                <li class="split"></li>
+                <li><a id="NF-revisepassword" authorize="yes" onclick="btn_revisepassword()"><i class="fa fa-key"></i>密码重置</a></li>
+                <li class="split"></li>
+                <li><a id="NF-disabled" authorize="yes" onclick="btn_disabled()"><i class="fa fa-stop-circle"></i>禁用</a></li>
+                <li><a id="NF-enabled" authorize="yes" onclick="btn_enabled()"><i class="fa fa-play-circle"></i>启用</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="姓名/手机" style="width: 200px;">
+                        <select id="F_Area" name="F_Area" class="form-control" style="width: 200px;">
+                            <option value="">==请选择==</option>
+                        </select>
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>

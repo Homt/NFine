@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<style>
+    .form .formValue {
+        width: 80px;
+    }
+</style>
+<script>
+    var keyValue = $.request("keyValue");
+
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/VisitManage/Visit/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: False,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        var taskId = "@ViewBag.TaskId";// $.request("taskId");
+        $('#F_TaskId').val(taskId);
+        //console.log(taskId);
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return False;
+        }
+        $.submitForm({
+            url: "/VisitManage/Visit/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">商户日常回访表</a></li>
+            @*<li ><a href="#">扩展信息</a></li>*@
+        </ul>
+        <div style="padding-top: 20px; margin-right: 30px;">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">商户名称</th>
+                    <td class="formValue">
+                        <input id="F_TaskId" name="F_TaskId" type="hidden" placeholder="请输入商户名称" />
+                        <input id="F_Name" name="F_Name" type="text" class="form-control required" placeholder="商户名称" />
+                    </td>
+                    <th class="formTitle">商户类别</th>
+                    <td class="formValue">
+                        <select id="F_Type" name="F_Type" class="form-control">
+                            <option value="">==请选择==</option>
+                            <option value="新商户">新商户</option>
+                            <option value="重点商户">重点商户</option>
+                            <option value="高风险商户">高风险商户</option>
+                            <option value="其他商户">其他商户</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">商户编号</th>
+                    <td class="formValue">
+                        <input id="F_Code" name="F_Code" type="text" class="form-control required" placeholder="商户编号" />
+                    </td>
+                    <th class="formTitle">终端编号</th>
+                    <td class="formValue">
+                        <input id="F_Number" name="F_Number" type="text" class="form-control required" placeholder="终端编号" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">机具数量</th>
+                    <td class="formValue">
+                        <input id="F_Machine_Count" name="F_Machine_Count" type="text" class="form-control required" placeholder="机具数量" />
+                    </td>
+                    <th class="formTitle">机具类型</th>
+                    <td class="formValue">
+                        <input id="F_Machine_Type" name="F_Machine_Type" type="text" class="form-control required" placeholder="机具类型" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">联系人</th>
+                    <td class="formValue">
+                        <input id="F_Contacts" name="F_Contacts" type="text" class="form-control required" placeholder="联系人" />
+                    </td>
+                    <th class="formTitle">联系电话</th>
+                    <td class="formValue">
+                        <input id="F_Tel" name="F_Tel" type="text" class="form-control required" placeholder="联系电话" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">收银员</th>
+                    <td class="formValue">
+                        <input id="F_Cashier_Name" name="F_Cashier_Name" type="text" class="form-control required" placeholder="收银员" />
+                    </td>
+                    <th class="formTitle">收银员证件号码</th>
+                    <td class="formValue">
+                        <input id="F_Cashier_Code" name="F_Cashier_Code" type="text" class="form-control required" placeholder="收银员证件号码" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">终端机具布放地址</th>
+                    <td class="formValue">
+                        <input id="F_Address" name="F_Address" type="text" class="form-control required" placeholder="终端机具布放地址" />
+                    </td>
+                    <th class="formTitle">商户商品所属范畴</th>
+                    <td class="formValue">
+                        <input id="F_Category" name="F_Category" type="text" class="form-control required" placeholder="商户商品所属范畴" />
+                    </td>
+                </tr>
+
+            </table>
+            <hr />
+            <fieldset>
+                <legend>回访内容</legend>
+                <table class="form">
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            1.是否与登记数量是否相符？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu1" name="F_Qu1" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="fasle">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            2.是否与商户登记装机地址一致？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu2" name="F_Qu2" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            3.POS机具是否处于正常工作状态？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu3" name="F_Qu3" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            4.POS机具物理封条是否完好？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu4" name="F_Qu4" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            5.是否与MCC所属类型一致？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu5" name="F_Qu5" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            6.交易单据显示商户名称及编号、终端编号是否与登记信息一致？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu6" name="F_Qu6" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            7.商户交易单据凭证的保管是否符合规定？是否按要求保存凭证二年？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu7" name="F_Qu7" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            8.商户收银员是否经过培训后上岗？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu8" name="F_Qu8" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            9.收银员现场操作是否符合受理规范？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu9" name="F_Qu9" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            10.商户经营状况是否正常？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu10" name="F_Qu10" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            11.商户是否能按要求配合银行完成交易对账或账务调整？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu11" name="F_Qu11" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            12.商户是否有对员工进行账户信息安全方面的培训，并保留培训记录？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu12" name="F_Qu12" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            13.商户及其员工，是否未以任何形式、<br />在任何设备和介质上记录或存储除卡号以外的其他持卡人敏感信息（如有效期、CVV2、身份证等）？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu13" name="F_Qu13" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            14.对于保存到期或已经使用完毕的账户信息（包括电子和纸质形式），是否有建立严格的销毁登记制度？<br />销毁记录是否至少包括：使用人、用途、销毁方式与时间、销毁人签字、监督人签字等内容？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu14" name="F_Qu14" class="form-control required">
+                                <option value="True">是</option>
+                                <option value="False">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+
+        </div>
+    </div>
+</form>

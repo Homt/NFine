@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+<link href="/Content/css/framework-theme.css" rel="stylesheet" />
+<script src="/Content/js/highcharts/highcharts.js"></script>
+<script>
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson"
+        });
+    }
+    $(function () {
+        initControl();
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '任务统计'
+            },
+            subtitle: {
+                text: '锡润管理平台'
+            },
+            xAxis: {
+                categories:@Html.Raw(ViewBag.OrganizeList),
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '访客数(个)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} 个</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series:@Html.Raw(ViewBag.Series)
+            //    [
+            //    {
+            //        name: '东京',
+            //        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            //    }, {
+            //        name: '纽约',
+            //        data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+            //    }, {
+            //        name: '伦敦',
+            //        data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+            //    }, {
+            //        name: '柏林',
+            //        data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+            //    }
+            //]
+            });
+        $("#btn_search").click(function () {
+            location.href = "/StatisticsManage/Department/Index?organizeid=" + $('#F_OrganizeId option:selected').val() + "&startdt=" + $('#F_StartDT').val() + "&enddt=" + $('#F_EndDT').val();
+        });
+    });
+</script>
+<div class="topPanel">
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <select id="F_OrganizeId" id="F_OrganizeId" class="form-control" style="width: 200px;">
+                            <option value="">==请选择==</option>
+                        </select>
+                        @*<input id="txt_keyword" type="text" class="form-control" placeholder="账户/姓名/手机" style="width: 200px;">*@
+                        <input id="F_StartDT" name="F_StartDT" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" style="width: 200px;" placeholder="请输入开始时间" />
+                        <input id="F_EndDT" name="F_EndDT" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" style="width: 200px;" placeholder="请输入结束时间" />
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="container" style="min-width:400px;height:400px"></div>

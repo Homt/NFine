@@ -1,0 +1,226 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/VisitManage/Visit/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        var taskId = "@ViewBag.TaskId";// $.request("taskId");
+        $('#F_TaskId').val(taskId);
+        //console.log(taskId);
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/VisitManage/Visit/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">中国邮政储蓄银行“商易通”客户回访记录表</a></li>
+            @*<li ><a href="#">扩展信息</a></li>*@
+        </ul>
+        <div style="padding-top: 20px; margin-right: 30px;" id="print">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">商户代码</th>
+                    <td class="formValue" colspan="3">
+                        <input id="F_TaskId" name="F_TaskId" type="hidden" placeholder="特约商户代码" />
+                        <input id="F_Code" name="F_Code" type="text" class="form-control required" placeholder="特约商户代码" />
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <th class="formTitle">客户名称</th>
+                    <td class="formValue">
+                        <input id="F_Name" name="F_Name" type="text" class="form-control required" placeholder="客户名称" />
+                    </td>
+                    <th class="formTitle">联系人</th>
+                    <td class="formValue">
+                        <input id="F_Contacts" name="F_Contacts" type="text" class="form-control required" placeholder="联系人" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">固定电话</th>
+                    <td class="formValue">
+                        <input id="F_Tel" name="F_Tel" type="text" class="form-control required" placeholder="固定电话" />
+                    </td>
+                    <th class="formTitle">手机</th>
+                    <td class="formValue">
+                        <input id="F_Mobile" name="F_Mobile" type="text" class="form-control required" placeholder="手机" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">地址</th>
+                    <td class="formValue" colspan="3">
+                        <input id="F_Address" name="F_Address" type="text" class="form-control required" placeholder="特约商户地址" />
+                    </td>
+
+                </tr>
+                <tr>
+                    <th class="formTitle">支行名称</th>
+                    <td class="formValue">
+                        <input id="F_Branch" name="F_Branch" type="text" class="form-control required" placeholder="支行名称" />
+                    </td>
+                    <th class="formTitle">客户经理</th>
+                    <td class="formValue">
+                        <input id="F_Manager_Name" name="F_Manager_Name" type="text" class="form-control required" placeholder="客户经理" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">联系方式</th>
+                    <td class="formValue">
+                        <input id="F_Manager_Mobile" name="F_Manager_Mobile" type="text" class="form-control required" placeholder="联系方式" />
+                    </td>
+                    <th class="formTitle">终端型号</th>
+                    <td class="formValue">
+                        <input id="F_Type" name="F_Type" type="text" class="form-control required" placeholder="终端型号" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">终端编号</th>
+                    <td class="formValue">
+                        <input id="F_Number" name="F_Number" type="text" class="form-control required" placeholder="终端编号" />
+                    </td>
+                    <th class="formTitle">PSAM卡号</th>
+                    <td class="formValue">
+                        <input id="F_PSAM" name="F_PSAM" type="text" class="form-control required" placeholder="PSAM卡号" />
+                    </td>
+                </tr>
+
+            </table>
+            <hr />
+            <fieldset>
+                <legend>回访内容（现场）</legend>
+                <table class="form">
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            1.固话支付终端是否运行正常，是否出现故障或损坏等问题；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu1" name="F_Qu1" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            2.固话支付终端是否合规使用，是否存在移机、拆机现象；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu2" name="F_Qu2" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            3.固话支付终端使用情况是否正常，是否出现争议交易；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu3" name="F_Qu3" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            4.客户经营情况是否正常，是否有停业或转让倾向；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu4" name="F_Qu4" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            5.对于收单商户，主营业务范围和行业归属是否发生变化；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu5" name="F_Qu5" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            6.使用I型终端的，是否有开通收外行账户款；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu6" name="F_Qu6" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            7.对家庭使用的终端，是否有开通收外行账户款或助农取款；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu7" name="F_Qu7" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            8.测试凭条打印的终端信息是否正确；
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu8" name="F_Qu8" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            9.是否存在其他异常情况。
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu9" name="F_Qu9" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script src="~/Content/js/jqprint/jquery.jqprint-0.3.js"></script>
+<link media="print" href="~/Content/js/jqprint/jquery.jqprint.css" rel="stylesheet" />
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/TaskManage/Task/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('div.ckbox label').attr('for', '');
+                //$("#F_UserPassword").val("******");
+            }
+        });
+    });
+
+    function initControl() {
+        $("#F_Gender").bindSelect()
+        $("#F_IsAdministrator").bindSelect()
+        $("#F_EnabledMark").bindSelect()
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson"
+        });
+        $("#F_Area").bindSelect({
+            url: "/SystemManage/Area/GetTreeSelectJson",
+        });
+        $("#F_RoleId").bindSelect({
+            url: "/SystemManage/Role/GetGridJson",
+            id: "F_Id",
+            text: "F_FullName"
+        });
+        $("#F_DutyId").bindSelect({
+            url: "/SystemManage/Duty/GetGridJson",
+            id: "F_Id",
+            text: "F_FullName"
+        });
+        $("#F_Bank").bindSelect({
+            url: '/SystemManage/ItemsData/GetGridJson',
+            param: { itemId: "2748F35F-4EE2-417C-A907-3453146AAF67" },
+            id: "F_Id",
+            text: "F_ItemName"
+        });
+        $("#F_Machines").bindSelect({
+            url: '/SystemManage/ItemsData/GetGridJson',
+            param: { itemId: "00F76465-DBBA-484A-B75C-E81DEE9313E6" },
+            id: "F_Id",
+            text: "F_ItemName"
+        });
+    }
+</script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">基本信息</a></li>
+            @*<li><a href="javascript:void()">扩展信息</a></li>
+                <li><a href="javascript:void()">登录日志</a></li>
+                <li><a href="javascript:void()">操作日志</a></li>*@
+        </ul>
+        <div style="position: absolute; top: 22px; right: 8px;">
+            <a class="btn btn-default " href="javascript:window.print();"><i class="fa fa-print" style="margin-right: 5px; font-size: 13px;"></i>直接打印</a>
+        </div>
+        <div style="padding-top: 20px; margin-right: 30px;" id="print">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">商户名称</th>
+                    <td class="formValue">
+                        <input id="F_Shop_Name" name="F_Shop_Name" type="text" class="form-control required" />
+                    </td>
+                    <th class="formTitle">商户地址</th>
+                    <td class="formValue">
+                        <input id="F_Shop_Address" name="F_Shop_Address" type="text" class="form-control required" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">客户名字</th>
+                    <td class="formValue">
+                        <input id="F_Name" name="F_Name" type="text" class="form-control required" />
+                    </td>
+                    <th class="formTitle">客户电话</th>
+                    <td class="formValue">
+                        <input id="F_Tel" name="F_Tel" type="text" class="form-control required" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">访问人员</th>
+                    <td class="formValue">
+                        <input id="F_User_Name" name="F_User_Name" type="text" class="form-control required" />
+                    </td>
+                    <th class="formTitle">访问时间</th>
+                    <td class="formValue">
+                        <input id="F_Task_Time" name="F_Task_Time" type="text" class="form-control" />
+                    </td>
+
+                </tr>
+                <tr>
+                    <th class="formTitle">联系方式</th>
+                    <td class="formValue">
+                        <input id="F_User_Tel" name="F_User_Tel" type="text" class="form-control" />
+                    </td>
+                    <th class="formTitle">访问状态</th>
+                    <td class="formValue">
+                        <input id="F_Status" name="F_Status" type="text" class="form-control" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>

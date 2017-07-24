@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: "/VisitManage/Visit/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        var taskId = "@ViewBag.TaskId";// $.request("taskId");
+        $('#F_TaskId').val(taskId);
+        //console.log(taskId);
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/VisitManage/Visit/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">郑州银行特约商户回访检查表</a></li>
+            @*<li ><a href="#">扩展信息</a></li>*@
+        </ul>
+        <div style="padding-top: 20px; margin-right: 30px;" id="print">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">特约商户代码</th>
+                    <td class="formValue">
+                        <input id="F_TaskId" name="F_TaskId" type="hidden" placeholder="特约商户代码" />
+                        <input id="F_Code" name="F_Code" type="text" class="form-control required" placeholder="特约商户代码" />
+                    </td>
+                    <th class="formTitle">特约商户名称</th>
+                    <td class="formValue">
+                        <input id="F_Name" name="F_Name" type="text" class="form-control required" placeholder="特约商户名称" />
+                    </td>
+
+                </tr>
+                <tr>
+                    <th class="formTitle">特约商户地址</th>
+                    <td class="formValue">
+                        <input id="F_Address" name="F_Address" type="text" class="form-control required" placeholder="特约商户地址" />
+                    </td>
+                </tr>
+            </table>
+            <hr />
+            <fieldset>
+                <legend>巡检内容(以下项目在现场巡检过程时逐一核实)</legend>
+                <table class="form">
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            1.特约商户是否与原登记是否相符？商户是否经营正常？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu1" name="F_Qu1" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            2.POS机具有否被移至他处使用或被改造或加装了其他设备？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu2" name="F_Qu2" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            3.POS机具是否处于正常工作状态？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu3" name="F_Qu3" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            4.特约商户实际经营业务内容是否与营业执照登记的内容一致？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu4" name="F_Qu4" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            5.特约商户交易单据凭证的保管是否符合规定？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu5" name="F_Qu5" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            6.特约商户经营状况是否正常？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu6" name="F_Qu6" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            7.特约商户是否缺少打印凭条？
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu7" name="F_Qu7" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px; width: auto">
+                            8.测试机具是否正常运营，并粘贴交易单据。
+                        </th>
+                        <td class="formValue">
+                            <select id="F_Qu8" name="F_Qu8" class="form-control required">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+
+        </div>
+    </div>
+</form>
+

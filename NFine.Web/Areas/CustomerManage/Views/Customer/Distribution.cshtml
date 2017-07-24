@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<style type="text/css">
+    body, html, #allmap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        font-family: "微软雅黑";
+    }
+
+    #l-map {
+        height: 100%;
+        width: 78%;
+        float: left;
+        border-right: 2px solid #bcbcbc;
+    }
+
+    #r-result {
+        height: 100%;
+        width: 20%;
+        float: left;
+    }
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=rGmBm2ANIxszdnuytRGcX1Rn"></script>
+<script>
+    $(function() {
+        $("#F_Bank").bindSelect({
+            url: "/SystemManage/ItemsData/GetSelectIdNameJson",
+            param: { enCode: "Bank" },
+            id: "id",
+            text: "text"
+        });
+        $("#btn_search").click(function () {
+            location.href = "/CustomerManage/Customer/Distribution?bank=" + $('#F_Bank option:selected').val() + "&keyword=" + $('#keyword').val();
+        });
+    });
+</script>
+
+<div class="topPanel">
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <select id="F_Bank" id="F_Bank" class="form-control" style="width: 200px;">
+                            <option value="">==请选择==</option>
+                        </select>
+                        <input id="keyword" name="keyword" type="text" class="form-control"  style="width: 200px;" placeholder="客户姓名,地址" />
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="allmap"></div>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    map.enableScrollWheelZoom(true);
+    // 添加带有定位的导航控件
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.addControl(navigationControl);
+    // 添加定位控件
+    var geolocationControl = new BMap.GeolocationControl();
+    geolocationControl.addEventListener("locationSuccess", function (e) {
+        // 定位成功事件
+        var address = '';
+        address += e.addressComponent.province;
+        address += e.addressComponent.city;
+        address += e.addressComponent.district;
+        address += e.addressComponent.street;
+        address += e.addressComponent.streetNumber;
+        alert("当前定位地址为：" + address);
+    });
+    geolocationControl.addEventListener("locationError", function (e) {
+        // 定位失败事件
+        alert(e.message);
+    });
+    map.addControl(geolocationControl);
+    // 随机向地图添加25个标注
+    $.each(@Html.Raw(ViewBag.CustomerData), function(i,item) {
+        var point = new BMap.Point(item.F_Lng, item.F_Lat);
+        addMarker(point);
+        var marker = new BMap.Marker(point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        var opts = {
+            width : 100,     // 信息窗口宽度
+            height: 100,     // 信息窗口高度
+            title : item.F_Name , // 信息窗口标题
+            enableMessage:true,//设置允许信息窗发送短息
+            message:item.F_Shop_Address
+        }
+        var infoWindow = new BMap.InfoWindow(item.F_Shop_Address, opts);  // 创建信息窗口对象
+        marker.addEventListener("click", function(){
+            map.openInfoWindow(infoWindow,point); //开启信息窗口
+        });
+    });
+    // 编写自定义函数,创建标注
+    function addMarker(point) {
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+    }
+</script>
+
+

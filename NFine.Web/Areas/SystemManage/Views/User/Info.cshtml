@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    $(function () {
+        $('.wrapper').height($(window).height() - 11);
+    })
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: "/SystemManage/User/ModifyPassword",
+            param: { pswd: $('#F_UserPassword').val(), newpswd: $('#F_UserNewPassword').val(), repswd: $('#F_UserRePassword').val() },
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+</script>
+<div class="wrapper">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#a" data-toggle="tab">修改密码</a></li>
+        @*<li><a href="#c" data-toggle="tab">安全验证</a></li>
+            <li><a href="#c" data-toggle="tab">系统日志</a></li>
+            <li><a href="#c" data-toggle="tab">个性化设置</a></li>*@
+    </ul>
+    <form id="form1">
+        <div class="tab-content" style="padding-top: 5px;">
+            <div id="a" class="tab-pane active" style="padding: 15px;">
+                <ul class="pop-list">
+                    <li>
+                        <label>账户</label>
+                        <input type="text" class="form-control" name="F_Account" id="F_Account" value="@NFine.Code.OperatorProvider.Provider.GetCurrent().UserName" />
+                    </li>
+                    <li>
+                        <label>旧密码</label>
+                        <input type="password" name="F_UserPassword" class="form-control required" id="F_UserPassword" />
+                    </li>
+                    <li>
+                        <label>新密码</label>
+                        <input type="password" class="form-control required" name="F_UserNewPassword" id="F_UserNewPassword" />
+                    </li>
+                    <li>
+                        <label>确认新密码</label>
+                        <input type="password" class="form-control required" name="F_UserRePassword" id="F_UserRePassword" />
+                    </li>
+                    <li>
+                        <div style="padding-left: 115px;">
+                            <a class="btn btn-primary" onclick="submitForm()"><i class="fa fa-save" style="margin-right: 5px;"></i>确认修改</a>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </form>
+</div>

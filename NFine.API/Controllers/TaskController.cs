@@ -33,7 +33,7 @@ namespace NFine.API.Controllers
         /// <param name="enddt">结束时间</param>
         /// <param name="userid">用户id</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostTaskList(int? pageIndex, int? pageSize, string bank, string schedule, string keyword, string startdt, string enddt, string userid)
+        public ApiResult<dynamic> PostTaskList(int? pageIndex, int? pageSize, string userid, string bank = "", string schedule = "", string keyword = "", string startdt = "", string enddt = "")
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
@@ -103,9 +103,9 @@ namespace NFine.API.Controllers
         /// <param name="qu14"></param>
         /// <param name="qu15"></param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostTaskData(string taskId, string code, string name, string address, string tel, string mobile, string branch, string manager_mobile, string manager_name,
-            string number, int count, string type, string cashier_name, string cashier_code, string contacts, string machine_type, string machine_count, string category, string psam, bool qu1, bool qu2,
-            bool qu3, bool qu4, bool qu5, bool qu6, bool qu7, bool qu8, bool qu9, bool qu10, bool qu11, bool qu12, bool qu13, bool qu14, bool qu15)
+        public ApiResult<dynamic> PostTaskData(string taskId, bool qu1, bool qu2,
+            bool qu3, bool qu4, bool qu5, bool qu6, bool qu7, bool qu8, bool qu9, bool qu10, bool qu11, bool qu12, bool qu13, bool qu14, bool qu15, int count, string code = "", string name = "", string address = "", string tel = "", string mobile = "", string branch = "", string manager_mobile = "", string manager_name = "",
+            string number = "",  string type = "", string cashier_name = "", string cashier_code = "", string contacts = "", string machine_type = "", string machine_count = "", string category = "", string psam = "")
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try

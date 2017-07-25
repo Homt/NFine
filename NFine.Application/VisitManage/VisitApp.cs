@@ -59,6 +59,11 @@ namespace NFine.Application.VisitManage
             }
             service.SubmitForm(userEntity, keyValue);
         }
+        public void SubmitFormAPI(VisitEntity userEntity)
+        {
+            userEntity.CreateSimple();
+            service.SubmitForm(userEntity, string.Empty);
+        }
         public void UpdateForm(VisitEntity userEntity)
         {
             service.Update(userEntity);

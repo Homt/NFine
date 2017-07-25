@@ -98,6 +98,18 @@ namespace NFine.Application.TaskManage
             }
             service.SubmitForm(userEntity, keyValue);
         }
+        public void SubmitFormAPI(TaskEntity userEntity, string keyValue)
+        {
+            if (!string.IsNullOrEmpty(keyValue))
+            {
+                userEntity.ModifySimple(keyValue);
+            }
+            else
+            {
+                userEntity.Create();
+            }
+            service.SubmitForm(userEntity, keyValue);
+        }
         public void SubmitForm(TaskEntity userEntity)
         {
             if (!string.IsNullOrEmpty(userEntity.F_Id))

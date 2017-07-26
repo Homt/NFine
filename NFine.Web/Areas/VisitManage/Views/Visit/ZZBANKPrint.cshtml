@@ -1,0 +1,275 @@
+﻿@model NFine.Domain._03_Entity.VisitManage.VisitEntity
+@using NFine.Web.Areas.VisitManage.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script src="~/Content/js/jqprint/jquery.jqprint-0.3.js"></script>
+<link media="print" href="~/Content/js/jqprint/jquery.jqprint.css" rel="stylesheet" />
+
+<script>
+    $(function () {
+        top.$(".content-iframe").css("background-color", "#f9f9f9");
+    })
+    function btn_print() {
+        $("#print").jqprint();
+    }
+</script>
+<div style="position: absolute; top: 22px; right: 8px;">
+    <a class="btn btn-default " onclick="btn_print()"><i class="fa fa-print" style="margin-right: 5px; font-size: 13px;"></i>直接打印</a>
+</div>
+<div class="price-box">
+    <div id="print" style="padding:20px;">
+        <p class="cjk" align="center" style="margin-bottom: 0cm; line-height: 0.71cm">
+            <font size="4" style="font-size: 15pt"><b>郑州银行特约商户回访检查表</b></font>
+        </p>
+        <p class="cjk" style="margin-bottom: 0cm; line-height: 0.71cm">
+
+        </p>
+        <table width="627" cellpadding="7" cellspacing="0">
+            <col width="31">
+            <col width="250">
+            <col width="142">
+            <col width="142">
+            <tr valign="top">
+                <td colspan="2" width="295" style="border-top: 2.25pt solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk"><b>特约商户代码：@Model.F_Code</b></p>
+                </td>
+                <td colspan="2" width="298" style="border-top: 2.25pt solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk">
+                        <b>特约商户名称：@Model.F_Name</b><font face="仿宋_GB2312, 仿宋, monospace">
+                            <b>
+                            </b>
+                        </font>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" width="607" valign="top" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk">
+                        <b>特约商户地址：@Model.F_Address</b><font face="仿宋_GB2312, 仿宋, monospace">
+                            <b>
+                            </b>
+                        </font>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">序号</p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">检查内容</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">正常</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">异常描述</p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">1</span></font></p>
+                </td>
+                <td width="250" valign="top" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="left" style="margin-bottom: 0cm">特约商户是否与原登记是否相符？</p>
+                    <p class="cjk" align="left">商户是否经营正常？</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu1)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">2</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" style="margin-bottom: 0cm"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">POS</span></font>机具有否被移至他处使用或被改造或加装了其他设备？</p>
+                    <p class="cjk">
+                        @uni.ConvertResult(Model.F_Qu2)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">3</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">POS</span></font>机具是否处于正常工作状态？</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu3)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">4</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk">特约商户实际经营业务内容是否与营业执照登记的内容一致？</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu4)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">5</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk">特约商户交易单据凭证的保管是否符合规定？</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu5)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">6</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk">特约商户经营状况是否正常？</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu6)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="62" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">7</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk">特约商户是否缺少打印凭条？</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu7)
+                        <br />
+
+                    </p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                    <p class="cjk" align="center">
+                        <br />
+
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td width="31" height="59" style="border-top: 1px solid #000000; border-bottom: 2.25pt solid #000000; border-left: 2.25pt solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center"><font face="仿宋_GB2312, 仿宋, monospace"><span lang="en-US">8</span></font></p>
+                </td>
+                <td width="250" style="border-top: 1px solid #000000; border-bottom: 2.25pt solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk">测试机具是否正常运营，并粘贴交易单据。</p>
+                </td>
+                <td width="142" style="border-top: 1px solid #000000; border-bottom: 2.25pt solid #000000; border-left: 1px solid #000000; border-right: none; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.19cm; padding-right: 0cm">
+                    <p class="cjk" align="center">
+                        @uni.ConvertResult(Model.F_Qu8)
+                            <br />
+
+                        </p>
+                    </td>
+                    <td width="142" style="border-top: 1px solid #000000; border-bottom: 2.25pt solid #000000; border-left: 1px solid #000000; border-right: 2.25pt solid #000000; padding: 0cm 0.19cm">
+                        <p class="cjk" align="center">
+                            <br />
+
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 0.71cm">
+                商户签字：<font face="仿宋_GB2312, 仿宋, monospace">
+                </font>联系人：<font face="仿宋_GB2312, 仿宋, monospace">
+                </font>
+            </p>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 100%">
+                装机电话：<font face="仿宋_GB2312, 仿宋, monospace">
+                </font>
+            </p>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 100%">
+                服务公司：河南锡润商务咨询有限公司<font face="仿宋_GB2312, 仿宋, monospace">
+                </font>联系电话：
+            </p>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 100%">
+
+            </p>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 100%">服务人员：</p>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 100%">
+                <font face="仿宋_GB2312, 仿宋, monospace">
+                </font>
+            </p>
+            <p class="cjk" style="margin-bottom: 0cm; line-height: 100%">
+                日期：<font face="仿宋_GB2312, 仿宋, monospace">
+                </font>年<font face="仿宋_GB2312, 仿宋, monospace">   </font>月<font face="仿宋_GB2312, 仿宋, monospace">
+                </font>日
+            </p>
+
+
+        </div>
+    </div>

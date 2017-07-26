@@ -153,6 +153,7 @@
     <Compile Include="Areas\TaskManage\Controllers\TaskController.cs" />
     <Compile Include="Areas\TaskManage\TaskManageAreaRegistration.cs" />
     <Compile Include="Areas\VisitManage\Controllers\VisitController.cs" />
+    <Compile Include="Areas\VisitManage\Models\uni.cs" />
     <Compile Include="Areas\VisitManage\VisitManageAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -392,6 +393,7 @@
     <Content Include="Content\js\zsign\jquery.zsign.css" />
     <Content Include="Content\js\zsign\jquery.zsign.js" />
     <Content Include="Content\js\zsign\signet.gif" />
+    <Content Include="Content\psbc.css" />
     <Content Include="Global.asax" />
     <Content Include="Index.htm" />
     <Content Include="Web.config" />
@@ -662,6 +664,11 @@
     <Content Include="Areas\VisitManage\Views\Visit\PSBCDetails.cshtml" />
     <Content Include="Areas\VisitManage\Views\Visit\PSBCForm.cshtml" />
     <Content Include="Areas\VisitManage\Views\Visit\CGBDetails.cshtml" />
+    <Content Include="Areas\VisitManage\Views\Visit\ZZBANKPrint.cshtml" />
+    <Content Include="Areas\VisitManage\Views\Visit\PSBCPrint.cshtml" />
+    <Content Include="Areas\VisitManage\Views\Visit\CMBCPrint.cshtml" />
+    <Content Include="Areas\VisitManage\Views\Visit\CEBCPrint.cshtml" />
+    <Content Include="Areas\VisitManage\Views\Visit\CGBPrint.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
   </ItemGroup>
   <PropertyGroup>

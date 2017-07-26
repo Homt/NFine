@@ -31,7 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\NFine.API.XML</DocumentationFile>
+    <DocumentationFile>bin\NFine.API.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
@@ -167,6 +167,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attribute\ApiAuthorizeAttribute.cs" />
     <Compile Include="Attribute\CrossSiteAttribute.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FeedBackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />

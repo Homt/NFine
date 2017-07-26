@@ -36,7 +36,7 @@ namespace NFine.Web.Areas.VisitManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
-            var model = VisitApp.GetList(keyValue).OrderByDescending(d=>d.F_CreatorTime).FirstOrDefault();
+            var model = VisitApp.GetList(keyValue).OrderByDescending(d => d.F_CreatorTime).FirstOrDefault();
             var data = VisitApp.GetForm(model == null ? string.Empty : model.F_Id);
             return Content(data.ToJson());
         }
@@ -130,6 +130,11 @@ namespace NFine.Web.Areas.VisitManage.Controllers
             ViewBag.TaskId = Common.GetString("TaskId");
             return View();
         }
+        public ActionResult ZZBANKPrint(string id)
+        {
+            var model = VisitApp.GetList(id).OrderByDescending(d => d.F_CreatorTime).FirstOrDefault();
+            return View(model);
+        }
         ///中国邮政储蓄
         public ActionResult PSBCForm()
         {
@@ -140,6 +145,12 @@ namespace NFine.Web.Areas.VisitManage.Controllers
         {
             ViewBag.TaskId = Common.GetString("TaskId");
             return View();
+        }
+
+        public ActionResult PSBCPrint(string id)
+        {
+            var model = VisitApp.GetList(id).OrderByDescending(d => d.F_CreatorTime).FirstOrDefault();
+            return View(model);
         }
         //中国民生银行
         public ActionResult CMBCForm()
@@ -152,6 +163,12 @@ namespace NFine.Web.Areas.VisitManage.Controllers
             ViewBag.TaskId = Common.GetString("TaskId");
             return View();
         }
+
+        public ActionResult CMBCPrint(string id)
+        {
+            var model = VisitApp.GetList(id).OrderByDescending(d => d.F_CreatorTime).FirstOrDefault();
+            return View(model);
+        }
         //中国光大银行
         public ActionResult CEBForm()
         {
@@ -163,6 +180,11 @@ namespace NFine.Web.Areas.VisitManage.Controllers
             ViewBag.TaskId = Common.GetString("TaskId");
             return View();
         }
+        public ActionResult CEBCPrint(string id)
+        {
+            var model = VisitApp.GetList(id).OrderByDescending(d => d.F_CreatorTime).FirstOrDefault();
+            return View(model);
+        }
         //中国广发银行
         public ActionResult CGBForm()
         {
@@ -173,6 +195,12 @@ namespace NFine.Web.Areas.VisitManage.Controllers
         {
             ViewBag.TaskId = Common.GetString("TaskId");
             return View();
+        }
+
+        public ActionResult CGBPrint(string id)
+        {
+            var model = VisitApp.GetList(id).OrderByDescending(d => d.F_CreatorTime).FirstOrDefault();
+            return View(model);
         }
     }
 }

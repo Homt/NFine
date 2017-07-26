@@ -58,7 +58,7 @@
             @*<li ><a href="#">扩展信息</a></li>*@
         </ul>
         <div style="position: absolute; top: 22px; right: 8px;">
-            <a class="btn btn-default " href="javascript:window.print();"><i class="fa fa-print" style="margin-right: 5px; font-size: 13px;"></i>直接打印</a>
+            <a class="btn btn-default " target="_blank" href="@Url.Action("CMBCPrint",new {id=ViewBag.TaskId})"><i class="fa fa-print" style="margin-right: 5px; font-size: 13px;"></i>直接打印</a>
         </div>
         <div style="padding-top: 20px; margin-right: 30px;" id="print">
             <table class="form">

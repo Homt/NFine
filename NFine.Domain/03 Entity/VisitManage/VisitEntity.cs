@@ -33,6 +33,7 @@ namespace NFine.Domain._03_Entity.VisitManage
         public string F_Cashier_Code { get; set; }
         public string F_Contacts { get; set; }
         public string F_Machine_Type { get; set; }
+        public string F_Machine_Code { get; set; }
         public string F_Machine_Count { get; set; }
         public string F_Category { get; set; }
 

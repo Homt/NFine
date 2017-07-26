@@ -55,7 +55,7 @@
             @*<li ><a href="#">扩展信息</a></li>*@
         </ul>
         <div style="position: absolute; top: 22px; right: 8px;">
-            <a class="btn btn-default " href="javascript:window.print();"><i class="fa fa-print" style="margin-right: 5px; font-size: 13px;"></i>直接打印</a>
+            <a class="btn btn-default " href="@Url.Action("CEBCPrint",new {id=ViewBag.TaskId})" target="_blank"><i class="fa fa-print" style="margin-right: 5px; font-size: 13px;"></i>打印预览</a>
         </div>
         <div style="padding-top: 20px; margin-right: 30px;" id="print">
             <table class="form">
@@ -73,7 +73,7 @@
                 <tr>
                     <th class="formTitle">商户编码</th>
                     <td class="formValue">
-                        <input id="F_Number" name="F_Number" type="text" class="form-control required" placeholder="请输入商户编码" />
+                        <input id="F_Code" name="F_Code" type="text" class="form-control required" placeholder="请输入商户编码" />
                     </td>
                     <th class="formTitle">终端数量</th>
                     <td class="formValue">

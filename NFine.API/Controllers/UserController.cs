@@ -23,11 +23,13 @@ namespace NFine.API.Controllers
         /// <param name="userName">用户名</param>
         /// <param name="userPwd">密码</param>
         /// <returns></returns>
-        public ApiResult<dynamic> Login(string userName, string userPwd)
+        public ApiResult<dynamic> Login()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string userName = Common.GetString("userName");
+                string userPwd = Common.GetString("userPwd");
                 userPwd = Md5.md5(userPwd, 32).ToLower();
                 UserEntity userEntity = new UserApp().CheckLogin(userName, userPwd);
                 if (userEntity != null)
@@ -76,15 +78,15 @@ namespace NFine.API.Controllers
        /// <param name="newpassword">新密码</param>
        /// <param name="repassword">确认新密码</param>
        /// <returns></returns>
-        public ApiResult<dynamic> RevisePassword(string userId, string password, string newpassword, string repassword)
+        public ApiResult<dynamic> RevisePassword()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
-                string userid = userId ?? string.Empty;// Common.GetString("userId");
-                string pwd = password ?? string.Empty;// Common.GetString("password");
-                string newpwd = newpassword ?? string.Empty;// Common.GetString("newpassword");
-                string repwd = repassword ?? string.Empty;// Common.GetString("repassword");
+                string userid =  Common.GetString("userId");
+                string pwd = Common.GetString("password");
+                string newpwd = Common.GetString("newpassword");
+                string repwd =  Common.GetString("repassword");
                 UserLogOnApp userLogOnApp = new UserLogOnApp();
                 var userLogOn = userLogOnApp.GetForm(userid);
                 var oldpswd = Md5.md5(DESEncrypt.Encrypt(Md5.md5(pwd, 32).ToLower(), userLogOn.F_UserSecretkey).ToLower(), 32).ToLower();

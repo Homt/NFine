@@ -19,11 +19,12 @@ namespace NFine.API.Controllers
         /// </summary>
         /// <param name="enCode">字典父节点英文简写</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostItemDetail(string enCode)
+        public ApiResult<dynamic> PostItemDetail()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string enCode = Common.GetString("enCode");
                 ItemsDetailApp itemsDetailApp = new ItemsDetailApp();
                 var data = itemsDetailApp.GetItemList(enCode);
                 List<object> list = new List<object>();

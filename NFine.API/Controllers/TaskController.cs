@@ -33,13 +33,20 @@ namespace NFine.API.Controllers
         /// <param name="enddt">结束时间</param>
         /// <param name="userid">用户id</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostTaskList(int? pageIndex, int? pageSize, string userid, string bank = "", string schedule = "", string keyword = "", string startdt = "", string enddt = "")
+        public ApiResult<dynamic> PostTaskList()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
-                int pageindex = pageIndex ?? 0;// Common.GetInt("pageIndex", 0);// jsondata.pageIndex ?? 0;
-                int pagesize = pageSize ?? 0;// Common.GetInt("pageSize", 0);// jsondata.pageSize ?? 0;
+
+                int pageindex = Common.GetInt("pageIndex", 0);// jsondata.pageIndex ?? 0;
+                int pagesize = Common.GetInt("pageSize", 0);// jsondata.pageSize ?? 0;
+                string userid = Common.GetString("userid");
+                string bank = Common.GetString("bank");
+                string schedule = Common.GetString("schedule");
+                string keyword = Common.GetString("keyword");
+                string startdt = Common.GetString("startdt");
+                string enddt = Common.GetString("enddt");
                 TaskApp taskApp = new TaskApp();
                 Pagination pagination = new Pagination();
                 pagination.page = pageindex;
@@ -103,13 +110,45 @@ namespace NFine.API.Controllers
         /// <param name="qu14"></param>
         /// <param name="qu15"></param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostTaskData(string taskId, bool qu1, bool qu2,
-            bool qu3, bool qu4, bool qu5, bool qu6, bool qu7, bool qu8, bool qu9, bool qu10, bool qu11, bool qu12, bool qu13, bool qu14, bool qu15, int count, string code = "", string name = "", string address = "", string tel = "", string mobile = "", string branch = "", string manager_mobile = "", string manager_name = "",
-            string number = "",  string type = "", string cashier_name = "", string cashier_code = "", string contacts = "", string machine_type = "", string machine_count = "", string category = "", string psam = "")
+        public ApiResult<dynamic> PostTaskData()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string taskId = Common.GetString("taskId");
+                bool qu1 = Convert.ToBoolean(Common.GetString("qu1"));
+                bool qu2 = Convert.ToBoolean(Common.GetString("qu2"));
+                bool qu3 = Convert.ToBoolean(Common.GetString("qu3"));
+                bool qu4 = Convert.ToBoolean(Common.GetString("qu4"));
+                bool qu5 = Convert.ToBoolean(Common.GetString("qu5"));
+                bool qu6 = Convert.ToBoolean(Common.GetString("qu6"));
+                bool qu7 = Convert.ToBoolean(Common.GetString("qu7"));
+                bool qu8 = Convert.ToBoolean(Common.GetString("qu8"));
+                bool qu9 = Convert.ToBoolean(Common.GetString("qu9"));
+                bool qu10 = Convert.ToBoolean(Common.GetString("qu10"));
+                bool qu11 = Convert.ToBoolean(Common.GetString("qu11"));
+                bool qu12 = Convert.ToBoolean(Common.GetString("qu12"));
+                bool qu13 = Convert.ToBoolean(Common.GetString("qu13"));
+                bool qu14 = Convert.ToBoolean(Common.GetString("qu14"));
+                bool qu15 = Convert.ToBoolean(Common.GetString("qu15"));
+                int count = Common.GetInt("count", 0);
+                string code = Common.GetString("code");
+                string name = Common.GetString("name");
+                string address = Common.GetString("address");
+                string tel = Common.GetString("tel");
+                string machine_type = Common.GetString("machine_type");
+                string mobile = Common.GetString("mobile");
+                string machine_count = Common.GetString("machine_count");
+                string branch = Common.GetString("branch");
+                string manager_mobile = Common.GetString("manager_mobile");
+                string manager_name = Common.GetString("manager_name");
+                string number = Common.GetString("number");
+                string type = Common.GetString("type");
+                string cashier_name = Common.GetString("cashier_name");
+                string cashier_code = Common.GetString("cashier_code");
+                string contacts = Common.GetString("contacts");
+                string category = Common.GetString("category");
+                string psam = Common.GetString("psam");
                 VisitEntity visitEntity = new VisitEntity();
                 visitEntity.F_TaskId = taskId;
                 visitEntity.F_Code = code;
@@ -160,11 +199,13 @@ namespace NFine.API.Controllers
         /// <param name="taskId">任务id</param>
         /// <param name="statusId">状态id</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostTaskStatus(string taskId, string statusId)
+        public ApiResult<dynamic> PostTaskStatus()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string taskId = Common.GetString("taskId");
+                string statusId = Common.GetString("statusId");
                 TaskApp taskApp = new TaskApp();
                 TaskEntity taskEntity = new TaskEntity();
                 taskEntity.F_Status = statusId;
@@ -184,11 +225,12 @@ namespace NFine.API.Controllers
         /// </summary>
         /// <param name="id">任务id</param>
         /// <returns></returns>
-        public ApiResult<dynamic> Details(string id)
+        public ApiResult<dynamic> Details()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string id = Common.GetString("id");
                 TaskApp taskApp = new TaskApp();
                 var taskData = taskApp.GetForm(id);
                 CustomerApp customerApp = new CustomerApp();
@@ -243,11 +285,15 @@ namespace NFine.API.Controllers
         /// <param name="lat">纬度</param>
         /// <param name="lng">经度</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostCustomerData(string customerId, string userId, float lat, float lng)
+        public ApiResult<dynamic> PostCustomerData()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string customerId = Common.GetString("customerId");
+                string userId = Common.GetString("userId");
+                double lat = Convert.ToDouble(Common.GetString("lat"));
+                double lng = Convert.ToDouble(Common.GetString("lng"));
                 CustomerApp customerApp = new CustomerApp();
                 var customerModel = customerApp.GetForm(customerId);
                 customerModel.F_LastModifyTime = DateTime.Now;

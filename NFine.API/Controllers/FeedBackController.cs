@@ -20,11 +20,14 @@ namespace NFine.API.Controllers
         /// <param name="title">标题</param>
         /// <param name="content">内容</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostFeedBackData(string userId, string title, string content)
+        public ApiResult<dynamic> PostFeedBackData()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string userId = Common.GetString("userId");
+                string title = Common.GetString("title");
+                string content = Common.GetString("content");
                 FeedBackEntity feedBackEntity = new FeedBackEntity();
                 feedBackEntity.F_UserId = userId;
                 feedBackEntity.F_Content = content;

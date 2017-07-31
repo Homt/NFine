@@ -19,15 +19,16 @@ namespace NFine.API.Controllers
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">数量</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostMessageList(int? pageIndex, int? pageSize)
+        public ApiResult<dynamic> PostMessageList()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
 
                 //string userId = jsondata.userId ?? string.Empty;
-                int pageindex = pageIndex ?? 0;// Common.GetInt("pageIndex", 0);// jsondata.pageIndex ?? 0;
-                int pagesize = pageSize ?? 0;// Common.GetInt("pageSize", 0);// jsondata.pageSize ?? 0;
+                int pageindex =  Common.GetInt("pageIndex", 0);// jsondata.pageIndex ?? 0;
+                int pagesize = Common.GetInt("pageSize", 0);// jsondata.pageSize ?? 0;
+
                 MessageApp messageApp = new MessageApp();
                 Pagination pagination = new Pagination();
                 pagination.page = pageindex;

@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using NFine.Application;
 using NFine.API.Models;
+using NFine.Code;
 
 namespace NFine.API.Controllers
 {
@@ -20,11 +21,13 @@ namespace NFine.API.Controllers
         /// <param name="bank">银行</param>
         /// <param name="keyword">关键字</param>
         /// <returns></returns>
-        public ApiResult<dynamic> PostDistribution(string bank = "", string keyword = "")
+        public ApiResult<dynamic> PostDistribution()
         {
             ApiResult<dynamic> api = new ApiResult<dynamic>();
             try
             {
+                string bank = Common.GetString("bank");
+                string keyword = Common.GetString("keyword");
                 api.Result = customerApp.GetList(keyword, bank);
                 api.Message = "获取成功";
                 api.Status = true;
